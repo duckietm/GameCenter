@@ -50,7 +50,6 @@ public class EmulatorEvents implements EventListener {
         WebSocketManager.getInstance().initializePipeline();
         WebSocketManager.getInstance().connect();
 
-        Gamecenter.Logger("License valid!");
         Gamecenter.Logger("GameCenter Server on: " + (WebSocketManager.getInstance().isSSL() ? "wss" : "ws") + "://" + WebSocketManager.getInstance().getHost() + ":" + WebSocketManager.getInstance().getPort());
     }
     @EventHandler
