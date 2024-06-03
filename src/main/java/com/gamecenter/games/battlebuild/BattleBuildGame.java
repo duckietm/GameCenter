@@ -43,9 +43,9 @@ public class BattleBuildGame {
     public int MAX_PLAYERS = 8;
 
     public int MIN_PLAYERS = 2;
-    public int TEMPLATE_ROOM_ID = 9793;
+    public int TEMPLATE_ROOM_ID = Emulator.getConfig().getInt("hotel.battleball.room");
 
-    public int MINUTES_DURATION = 6;
+    public int MINUTES_DURATION = Emulator.getConfig().getInt("hotel.battleball.time");
     public String theme = null;
 
     public BattleBuildGame() {
@@ -137,7 +137,14 @@ public class BattleBuildGame {
     }
 
     public void createRoomForPlayer(GameClient player) {
-        Room roomCopy = Emulator.getGameEnvironment().getRoomManager().loadRoom(this.TEMPLATE_ROOM_ID,true);
+        Room roomCopy = Emulator.getGameEnvironment().getRoomManager().loadRoom(this.TEMPLATE_ROOM_ID, true);
+
+        if (roomCopy == null) {
+            System.err.println("Error: Failed to load template room with ID " + this.TEMPLATE_ROOM_ID);
+        }
+		
+		System.err.println("Loaded: load template room with ID " + this.TEMPLATE_ROOM_ID);
+
         roomCopy.loadData();
 
         HabboInfo info = player.getHabbo().getHabboInfo();
@@ -146,9 +153,16 @@ public class BattleBuildGame {
         roomObject.insertBattleRoom(info);
         roomObject.insertFurniture();
 
-
         int id = roomObject.getNewRoomId();
-        Room room = Emulator.getGameEnvironment().getRoomManager().loadRoom(id,true);
+        Room room = Emulator.getGameEnvironment().getRoomManager().loadRoom(id, true);
+
+        if (room == null) {
+            System.err.println("Error: Failed to load new room with ID " + id);
+            return;
+        }
+		
+		System.err.println("Loaded: Load new room with ID " + id);
+
         room.loadData();
         room.setState(RoomState.INVISIBLE);
         room.setHideWall(true);
