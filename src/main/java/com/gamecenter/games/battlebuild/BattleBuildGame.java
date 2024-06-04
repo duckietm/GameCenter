@@ -18,6 +18,7 @@ import com.gamecenter.thread.ThreadDeleteBattleBuildRoom;
 import com.gamecenter.utils.models.RoomObject;
 import com.gamecenter.websocket.WebSocketManager;
 import com.gamecenter.websocket.client.WebSocketClient;
+import com.gamecenter.websocket.incoming.common.games.gamecenter.VotationGameEvent;
 import com.gamecenter.websocket.outgoing.common.games.gamecenter.CloseGameQueue;
 import com.gamecenter.websocket.outgoing.common.games.gamecenter.CloseVotation;
 import com.gamecenter.websocket.outgoing.common.games.gamecenter.GameInfo;
@@ -49,6 +50,7 @@ public class BattleBuildGame {
     public String theme = null;
 
     public BattleBuildGame() {
+        VotationGameEvent.resetVoters();
         gameChecker();
         System.out.println("Game created successfully");
     }
@@ -58,7 +60,6 @@ public class BattleBuildGame {
             try {
                 run();
             } catch (InterruptedException e) {
-                // TODO Auto-generated catch block
                 e.printStackTrace();
             }
         }, 100);
@@ -110,7 +111,8 @@ public class BattleBuildGame {
 
         HabboInfo info = player.getHabbo().getHabboInfo();
 
-        if(this.players.stream().filter(x -> x.getHabbo().getHabboInfo().getId() == info.getId()).count() > 0) return false;
+        if (this.players.stream().filter(x -> x.getHabbo().getHabboInfo().getId() == info.getId()).count() > 0)
+            return false;
         this.players.add(player);
 
         if (this.players.stream().count() >= this.MIN_PLAYERS)
@@ -129,7 +131,7 @@ public class BattleBuildGame {
 
         RoomPlayerBattleBuild pr = this.rooms.stream().filter(x -> (x.player == player)).findAny().orElse(null);
 
-        if(pr != null) this.destroyRoom(pr.room);
+        if (pr != null) this.destroyRoom(pr.room);
 
         player.getHabbo().goToRoom(Emulator.getConfig().getInt("hotel.home.room"));
 
@@ -142,8 +144,8 @@ public class BattleBuildGame {
         if (roomCopy == null) {
             System.err.println("Error: Failed to load template room with ID " + this.TEMPLATE_ROOM_ID);
         }
-		
-		System.err.println("Loaded: load template room with ID " + this.TEMPLATE_ROOM_ID);
+
+        System.err.println("Loaded: load template room with ID " + this.TEMPLATE_ROOM_ID);
 
         roomCopy.loadData();
 
@@ -160,8 +162,8 @@ public class BattleBuildGame {
             System.err.println("Error: Failed to load new room with ID " + id);
             return;
         }
-		
-		System.err.println("Loaded: Load new room with ID " + id);
+
+        System.err.println("Loaded: Load new room with ID " + id);
 
         room.loadData();
         room.setState(RoomState.INVISIBLE);
@@ -176,13 +178,13 @@ public class BattleBuildGame {
     }
 
     private void run() throws InterruptedException {
+        VotationGameEvent.resetVoters();  // Reset voters at the start of the game
+
         while (!this.hasStarted && !this.hasFinished) {
-
             if (this.players.stream().count() >= this.MIN_PLAYERS && this.timeToStart != 0L && Emulator.getIntUnixTimestamp() > this.timeToStart + 6L) {
-
                 this.theme = String.valueOf((new Random()).nextInt(50));
 
-                for (GameClient player : this.players){
+                for (GameClient player : this.players) {
                     player.getHabbo().roomBypass = true;
                     this.createRoomForPlayer(player);
                     this.gamePlayerScores.add(new GamePlayerScore(player));
@@ -206,16 +208,16 @@ public class BattleBuildGame {
                 }
 
                 for (RoomPlayerBattleBuild rb : this.rooms) {
-                    for(GameClient player : this.players){
+                    for (GameClient player : this.players) {
                         player.sendResponse(new ForwardToRoomComposer(rb.room.getId()));
-                        
+
                         WebSocketClient wsClient = WebSocketManager.getInstance().getClientManager().getWebSocketClientForHabbo(player.getHabbo().getHabboInfo().getId());
                         wsClient.sendMessage(new ShowVotation(rb.player.getHabbo().getHabboInfo()));
                     }
 
                     Thread.sleep(15000);
 
-                    for(GameClient player : this.players){
+                    for (GameClient player : this.players) {
                         WebSocketClient wsClient = WebSocketManager.getInstance().getClientManager().getWebSocketClientForHabbo(player.getHabbo().getHabboInfo().getId());
                         wsClient.sendMessage(new CloseVotation());
                     }
@@ -230,7 +232,7 @@ public class BattleBuildGame {
 
                 this.broadcastWinner(maxScore);
 
-                for (Iterator<GameClient> iterator = this.players.iterator(); iterator.hasNext();) {
+                for (Iterator<GameClient> iterator = this.players.iterator(); iterator.hasNext(); ) {
                     GameClient value = iterator.next();
                     iterator.remove();
                     leftPlayer(value);
@@ -243,13 +245,12 @@ public class BattleBuildGame {
                 Globals.gameBattleBuild.remove(this);
                 this.hasFinished = true;
 
-                for (Iterator<GameClient> iterator = this.players.iterator(); iterator.hasNext();) {
+                for (Iterator<GameClient> iterator = this.players.iterator(); iterator.hasNext(); ) {
                     GameClient value = iterator.next();
                     iterator.remove();
                     leftPlayer(value);
                 }
             }
-
         }
 
         Globals.gameBattleBuild.remove(this);
