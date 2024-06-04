@@ -1,5 +1,5 @@
-INSERT INTO emulator_settings` (`key`, `value`) VALUES ('hotel.battleball.room', '000'); # Set the Battle Room ID
-INSERT INTO emulator_settings` (`key`, `value`) VALUES ('hotel.battleball.time', '6'); # Set the Battle timer (in min.)
+INSERT INTO emulator_settings (`key`, `value`) VALUES ('hotel.battleball.room', '000'); # Set the Battle Room ID
+INSERT INTO emulator_settings (`key`, `value`) VALUES ('hotel.battleball.time', '6'); # Set the Battle timer (in min.)
 
 
 
