@@ -44,9 +44,9 @@ public class BattleBuildGame {
     public int MAX_PLAYERS = 8;
 
     public int MIN_PLAYERS = 2;
-    public int TEMPLATE_ROOM_ID = Emulator.getConfig().getInt("hotel.battleball.room");
+    public int TEMPLATE_ROOM_ID = Emulator.getConfig().getInt("hotel.battlebuild.room");
 
-    public int MINUTES_DURATION = Emulator.getConfig().getInt("hotel.battleball.time");
+    public int MINUTES_DURATION = Emulator.getConfig().getInt("hotel.battlebuild.time");
     public String theme = null;
 
     public BattleBuildGame() {

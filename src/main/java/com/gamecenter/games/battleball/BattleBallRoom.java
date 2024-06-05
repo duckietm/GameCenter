@@ -43,7 +43,7 @@ public class BattleBallRoom {
     public int MAX_PLAYERS = 8;
 
     public int MIN_PLAYERS = 2;
-    public int TEMPLATE_ROOM_ID = 9803;
+    public int TEMPLATE_ROOM_ID = 8577;
     public int MATCH_DURATION = 3;
     public BattleBallRoom() {
         gameChecker();
