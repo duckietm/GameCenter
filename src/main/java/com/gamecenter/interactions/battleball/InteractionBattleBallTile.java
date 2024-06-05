@@ -29,6 +29,7 @@ public class InteractionBattleBallTile extends HabboItem {
         this.setExtradata("0");
     }
 
+
     @Override
     public void serializeExtradata(ServerMessage serverMessage) {
         serverMessage.appendInt((this.isLimited() ? 256 : 0));

@@ -44,7 +44,7 @@ public class BattleBallRoom {
 
     public int MIN_PLAYERS = 2;
     public int TEMPLATE_ROOM_ID = 8577;
-    public int MATCH_DURATION = 3;
+    public int MATCH_DURATION = 1;
     public BattleBallRoom() {
         gameChecker();
     }
@@ -91,11 +91,9 @@ public class BattleBallRoom {
         Room roomCopy = Emulator.getGameEnvironment().getRoomManager().loadRoom(this.TEMPLATE_ROOM_ID,true);
         roomCopy.loadData();
 
-
         RoomObject roomObject = new RoomObject(roomCopy);
         roomObject.insertRoom();
         roomObject.insertFurniture();
-
 
         int id = roomObject.getNewRoomId();
         Room room = Emulator.getGameEnvironment().getRoomManager().loadRoom(id,true);
@@ -147,13 +145,13 @@ public class BattleBallRoom {
 
         for(GameClient player : this.teamA){
             game.addHabbo(this.roomGame.getHabbo(player.getHabbo().getRoomUnit()), GameTeamColors.RED);
-            RoomTile t = new RoomTile((short)39, (short)22, (short)2, RoomTileState.OPEN, true);
+            RoomTile t = new RoomTile((short)14, (short)12, (short)2, RoomTileState.OPEN, true);
             this.roomGame.sendComposer(new RoomUnitOnRollerComposer(player.getHabbo().getRoomUnit(), t, this.roomGame).compose());
         }
 
         for(GameClient player : this.teamB){
             game.addHabbo(this.roomGame.getHabbo(player.getHabbo().getRoomUnit()), GameTeamColors.BLUE);
-            RoomTile t = new RoomTile((short)7, (short)22, (short)2, RoomTileState.OPEN, true);
+            RoomTile t = new RoomTile((short)6, (short)21, (short)2, RoomTileState.OPEN, true);
             this.roomGame.sendComposer(new RoomUnitOnRollerComposer(player.getHabbo().getRoomUnit(), t, this.roomGame).compose());
         }
     }

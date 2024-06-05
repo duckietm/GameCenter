@@ -20,16 +20,16 @@ public class BattleBallGameTeam extends GameTeam {
 
         switch (this.teamColor){
             case RED:
-                effect = 87;
+                effect = 33;
                 break;
             case BLUE:
-                effect = 88;
+                effect = 35;
                 break;
             case YELLOW:
-                effect = 89;
+                effect = 36;
                 break;
             case GREEN:
-                effect = 86;
+                effect = 34;
                 break;
         }
 

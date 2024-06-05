@@ -18,15 +18,14 @@ public class ThreadDeleteBattleBuildRoom implements Runnable{
     public void run() {
 
         try (Connection connection = Emulator.getDatabase().getDataSource().getConnection()) {
-            try (PreparedStatement rFurnis = connection.prepareStatement("DELETE FROM items WHERE room_id = ?")) {
-                rFurnis.setInt(1, game.getId());
-                rFurnis.addBatch();
+            try (PreparedStatement RemoveFurni = connection.prepareStatement("DELETE FROM items WHERE room_id = ?")) {
+                RemoveFurni.setInt(1, game.getId());
+                RemoveFurni.addBatch();
             }
 
             try (PreparedStatement statement = connection.prepareStatement("DELETE FROM rooms WHERE id = ? LIMIT 1")) {
                 statement.setInt(1, game.getId());
                 statement.addBatch();
-
             }
 
             game.preventUnloading = false;
