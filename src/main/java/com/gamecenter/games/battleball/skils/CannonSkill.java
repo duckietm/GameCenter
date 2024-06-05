@@ -1,5 +1,6 @@
 package com.gamecenter.games.battleball.skils;
 
+import com.eu.habbo.Emulator;
 import com.eu.habbo.habbohotel.gameclients.GameClient;
 import com.eu.habbo.habbohotel.rooms.RoomTile;
 import com.eu.habbo.habbohotel.rooms.RoomUnit;
@@ -13,7 +14,7 @@ import java.util.List;
 
 public class CannonSkill extends BattleBallSkills{
     public CannonSkill() {
-        super(SkillsType.CANNON, 103993);
+        super(SkillsType.CANNON, Emulator.getConfig().getInt("hotel.battleball.skill.cannonitemid"));
     }
 
     @Override

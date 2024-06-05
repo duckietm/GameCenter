@@ -1,5 +1,6 @@
 package com.gamecenter.games.battleball.skils;
 
+import com.eu.habbo.Emulator;
 import com.eu.habbo.habbohotel.games.GameTeam;
 import com.eu.habbo.habbohotel.rooms.RoomTile;
 import com.eu.habbo.habbohotel.users.Habbo;
@@ -14,7 +15,7 @@ import java.util.List;
 
 public class BoomSkill extends BattleBallSkills{
     public BoomSkill() {
-        super(SkillsType.BOOM, 103990);
+        super(SkillsType.BOOM, Emulator.getConfig().getInt("hotel.battleball.skill.boomitemid"));
     }
 
     @Override

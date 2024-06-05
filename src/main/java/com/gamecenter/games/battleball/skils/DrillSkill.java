@@ -7,7 +7,7 @@ import com.gamecenter.websocket.client.WebSocketClient;
 
 public class DrillSkill extends BattleBallSkills{
     public DrillSkill() {
-        super(SkillsType.DRILL, 103987);
+        super(SkillsType.DRILL, Emulator.getConfig().getInt("hotel.battleball.skill.drillitemid"));
     }
 
     public static String SKILL_DRILL_ATTRIBUTE = "SKILL_DRILL_ATTRIBUTE";

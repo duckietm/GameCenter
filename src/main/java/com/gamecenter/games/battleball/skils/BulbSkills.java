@@ -1,5 +1,6 @@
 package com.gamecenter.games.battleball.skils;
 
+import com.eu.habbo.Emulator;
 import com.eu.habbo.habbohotel.gameclients.GameClient;
 import com.eu.habbo.habbohotel.games.GameTeam;
 import com.eu.habbo.habbohotel.rooms.RoomTile;
@@ -15,7 +16,7 @@ import java.util.List;
 
 public class BulbSkills extends BattleBallSkills{
     public BulbSkills() {
-        super(SkillsType.BULB, 103994);
+        super(SkillsType.BULB, Emulator.getConfig().getInt("hotel.battleball.skill.bulbitemid"));
     }
 
     @Override

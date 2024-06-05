@@ -11,7 +11,7 @@ public class HarleSkill extends BattleBallSkills{
 
     public static String SKILL_HARLE_ATTRIBUTE = "SKILL_HARLE_ATTRIBUTE";
     public HarleSkill() {
-        super(SkillsType.HARLE, 103989);
+        super(SkillsType.HARLE, Emulator.getConfig().getInt("hotel.battleball.skill.harleitemid"));
     }
     @Override
     public void execute(WebSocketClient wsClient, BattleBallGamePlayer playerGame, BattleBallGame game) {

@@ -1,5 +1,6 @@
 package com.gamecenter.games.battleball.skils;
 
+import com.eu.habbo.Emulator;
 import com.eu.habbo.habbohotel.games.GameTeam;
 import com.eu.habbo.habbohotel.rooms.RoomTile;
 import com.eu.habbo.habbohotel.users.HabboItem;
@@ -13,7 +14,7 @@ import java.util.List;
 
 public class FlashSkill extends BattleBallSkills{
     public FlashSkill() {
-        super(SkillsType.FLASH, 103991);
+        super(SkillsType.FLASH, Emulator.getConfig().getInt("hotel.battleball.skill.flashitemid"));
     }
 
     @Override

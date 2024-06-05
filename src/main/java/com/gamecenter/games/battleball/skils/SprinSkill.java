@@ -9,7 +9,7 @@ public class SprinSkill extends BattleBallSkills{
 
     public static String SKILL_SPRIN_ATTRIBUTE = "SKILL_SPRIN_ATTRIBUTE";
     public SprinSkill() {
-        super(SkillsType.SPRIN, 103995);
+        super(SkillsType.SPRIN, Emulator.getConfig().getInt("hotel.battleball.skill.sprinitemid"));
     }
     @Override
     public void execute(WebSocketClient wsClient, BattleBallGamePlayer playerGame, BattleBallGame game) {

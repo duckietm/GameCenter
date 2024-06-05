@@ -22,7 +22,7 @@ public class PinsSkills extends BattleBallSkills{
 
     public int ITEMSID_PINS = 104010;
     public PinsSkills() {
-        super(SkillsType.PINS, 103996);
+        super(SkillsType.PINS, Emulator.getConfig().getInt("hotel.battleball.skill.pinsitemid"));
     }
 
     @Override
