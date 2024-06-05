@@ -1,6 +1,7 @@
 INSERT INTO emulator_settings (`key`, `value`) VALUES ('hotel.battlebuild.room', '000'); # Set the Battle Room ID
 INSERT INTO emulator_settings (`key`, `value`) VALUES ('hotel.battlebuild.time', '6'); # Set the Battle timer (in min.)
 
-
+INSERT INTO emulator_settings (`key`, `value`) VALUES ('ws.host', '0.0.0.0'); # Set the listner address (0.0.0.0) will listen on all interfaces
+INSERT INTO emulator_settings (`key`, `value`) VALUES ('ws.port', '2053'); # Set the port of the listnet (2053 is a port allowed by Cloudflare)
 
 

@@ -38,7 +38,14 @@ public class WebSocketManager extends Server {
 
 
     public WebSocketManager() throws Exception {
-        super("BattlePass Ws", Emulator.getConfig().getValue("ws.host", "0.0.0.0"), 2053, 1, 6);
+        super(
+                "BattlePass Ws",
+                Emulator.getConfig().getValue("ws.host", "0.0.0.0"),
+                Integer.parseInt(Emulator.getConfig().getValue("ws.port", "2053")),
+                1,
+                6
+        );
+
         this.clientManager = new WebSocketClientManager();
         this.incomingMessages = new THashMap<>();
         context = SSLCertificateLoader.getContext(Emulator.getConfig().getValue("ws.cert.pass", ""));
