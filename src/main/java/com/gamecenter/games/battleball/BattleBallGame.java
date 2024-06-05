@@ -133,7 +133,6 @@ public class BattleBallGame extends Game {
 
                 if (this.countDown > 1) {
                     Emulator.getThreading().run(this, 500);
-
                     return;
                 }
             }
@@ -150,7 +149,6 @@ public class BattleBallGame extends Game {
             }
 
             GameTeam highestScore = null;
-
             synchronized (this.teams) {
                 for (Map.Entry<GameTeamColors, GameTeam> set : this.teams.entrySet()) {
                     if (highestScore == null || highestScore.getTotalScore() < set.getValue().getTotalScore()) {
@@ -166,30 +164,37 @@ public class BattleBallGame extends Game {
                 }
             }
 
-            if(Math.random() < 0.07 && this.room != null){
+            if (Math.random() < 0.07 && this.room != null) {
                 SkillsType type = getRandomSkill();
 
                 Item item = Emulator.getGameEnvironment().getItemManager().getItem(skills.get(type).itemId);
-                HabboItem newItem = Emulator.getGameEnvironment().getItemManager().createItem(12, item, 0, 0, "");
+                if (item != null) {
+                    HabboItem newItem = Emulator.getGameEnvironment().getItemManager().createItem(12, item, 0, 0, "");
 
-                RoomTile tile = this.getRandomTile();
+                    if (newItem != null) {
+                        RoomTile tile = this.getRandomTile();
 
-                HabboItem itemTile = this.room.getTopItemAt(tile.x, tile.y);
+                        if (tile != null) {
+                            HabboItem itemTile = this.room.getTopItemAt(tile.x, tile.y);
 
-                newItem.setX(tile.x);
-                newItem.setY(tile.y);
-                newItem.setZ(itemTile.getZ() + 0.1);
-                newItem.setRoomId(this.room.getId());
-                newItem.needsUpdate(true);
+                            newItem.setX(tile.x);
+                            newItem.setY(tile.y);
+                            newItem.setZ(itemTile != null ? itemTile.getZ() + 0.1 : 0);
+                            newItem.setRoomId(this.room.getId());
+                            newItem.needsUpdate(true);
 
-                this.room.addHabboItem(newItem);
-
-                this.room.updateItem(newItem);
-                this.room.updateTile(this.room.getLayout().getTile(tile.x, tile.y));
-                this.room.sendComposer(new AddFloorItemComposer(newItem, "BattleBall").compose());
+                            this.room.addHabboItem(newItem);
+                            this.room.updateItem(newItem);
+                            this.room.updateTile(this.room.getLayout().getTile(tile.x, tile.y));
+                            this.room.sendComposer(new AddFloorItemComposer(newItem, "BattleBall").compose());
+                        }
+                    } else {
+                        LOGGER.error("Failed to create new item for skill type: " + type);
+                    }
+                } else {
+                    LOGGER.error("Item not found for skill type: " + type);
+                }
             }
-
-
         } catch (Exception e) {
             LOGGER.error("Caught exception", e);
         }
