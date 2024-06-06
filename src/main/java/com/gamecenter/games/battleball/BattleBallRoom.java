@@ -43,8 +43,8 @@ public class BattleBallRoom {
     public int MAX_PLAYERS = 8;
 
     public int MIN_PLAYERS = 2;
-    public int TEMPLATE_ROOM_ID = 8577;
-    public int MATCH_DURATION = 1;
+    public int TEMPLATE_ROOM_ID = Emulator.getConfig().getInt("hotel.battleball.template.roomid");
+    public int MATCH_DURATION = Emulator.getConfig().getInt("hotel.battleball.playtime");
     public BattleBallRoom() {
         gameChecker();
     }

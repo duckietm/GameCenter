@@ -36,7 +36,7 @@ public class BattleBallGame extends Game {
     public static final int POINTS_FILL_TILE = Emulator.getConfig().getInt("hotel.banzai.points.tile.fill", 0);
 
     public static final int POINTS_LOCK_TILE = Emulator.getConfig().getInt("hotel.banzai.points.tile.lock", 1);
-    public static final int ITEMID_STUN = 103999;
+    public static final int ITEMID_STUN = Emulator.getConfig().getInt("hotel.battleball.skill.pinsitemid");
 
     private static final ThreadPoolExecutor executor = (ThreadPoolExecutor) Executors.newFixedThreadPool(Emulator.getConfig().getInt("hotel.banzai.fill.threads", 2));
     private final THashMap<GameTeamColors, THashSet<HabboItem>> lockedTiles;
