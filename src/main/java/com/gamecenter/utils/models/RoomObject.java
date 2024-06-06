@@ -224,3 +224,4 @@ public class RoomObject {
         return (this.modelObject != null && !this.modelObject.heightMap.isEmpty());
     }
 }
+

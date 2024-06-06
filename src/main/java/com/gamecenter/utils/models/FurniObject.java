@@ -26,6 +26,8 @@ public class FurniObject {
 
     public final String limitedData;
 
+    public final String customData;
+
     public FurniObject(HabboItem item) {
         this.id = item.getId();
         this.name = item.getBaseItem().getName();
@@ -36,6 +38,7 @@ public class FurniObject {
         this.extradata = item.getExtradata();
         this.rotation = item.getRotation();
         this.isWired = item instanceof InteractionWired;
+        this.customData = "";
         this.limitedData = item.isLimited() ? (item.getLimitedStack() + ":" + item.getLimitedSells()) : "";
         this.wiredData = (item instanceof InteractionWired) ? ((InteractionWired)item).getWiredData() : "";
     }
